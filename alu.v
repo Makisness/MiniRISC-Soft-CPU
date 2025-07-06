@@ -1,4 +1,4 @@
-module alu (
+(* keep *) module alu (
     input [7:0] i_Val_1,
     input [7:0] i_Val_2,
     input [2:0] i_ALU_Op,
@@ -29,6 +29,7 @@ case (i_ALU_Op)
     begin
     o_Result = 8'b0;
     o_Overflow = 1'b0;
+    o_Zero_Flag = 1'b0;
     end
 endcase
 end

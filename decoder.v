@@ -1,4 +1,4 @@
-module instruction_decoder (
+(* keep *) module instruction_decoder (
     input [7:0] i_Inst,
     output [2:0] o_Op,
     output [1:0] o_Reg1,

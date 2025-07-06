@@ -1,4 +1,4 @@
-module register_file (
+(* keep *) module register_file (
     input i_Clk,
 
     //Read Addresses

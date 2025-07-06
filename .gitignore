@@ -1,8 +1,9 @@
 _build
 .DS_Store
 .vscode/tasks.json
-hardware.out
-hardware.asc
-hardware.bin
-hardware.json
+*.pyc
+*.out
+*.asc
+*.bin
+*.json
 .sconsign.dblite

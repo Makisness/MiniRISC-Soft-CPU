@@ -1,31 +1,86 @@
-module main (
+(* keep *) module main (
     input i_Clk,
-    output o_LED_1
+    output o_LED_1,
+    
+    output o_Segment2_A,
+    output o_Segment2_B,
+    output o_Segment2_C,
+    output o_Segment2_D,
+    output o_Segment2_E,
+    output o_Segment2_F,
+    output o_Segment2_G
+ 
 );
 
-    reg rst = 1'b0;
-    wire [4:0] w_ROM_Addr; //read rom @ addr
-    wire [4:0] w_PC;  //set pc
-    wire [7:0] w_Inst;
-    wire [2:0] w_Op;
-    wire [1:0] w_Reg1;
-    wire [2:0] w_Reg_Imm;
-    wire [7:0] w_Rdst_Val;
-    wire [7:0] w_Rsrc_Val;
-    wire [7:0] w_Result;
-    wire [1:0] w_Reg_Addr;
-    wire [4:0] w_Mem_Addr;
-    wire [2:0] w_ALU_Op;
-    wire [7:0] w_MemData;
-    wire w_Zero_Flag;
-    wire w_Overflow;
-    wire w_UseImm;
-    wire w_RegWrite_En;
-    wire w_MemWrite_En;
-    wire w_UseMem;
-    wire w_Jmp_En;
-    wire w_Halt;
-    wire [7:0] w_BusData = (w_UseMem == 1'b1) ? w_MemData : w_Result;
+    //LUT optimization culls these if not explicitly kept
+    //I imagine that theres a better way to do this but APIO is limiting
+
+    (* keep *) reg rst = 1'b0;
+    (* keep *) wire [4:0] w_ROM_Addr; //read rom @ addr
+    (* keep *) wire [4:0] w_PC;  //set pc
+    (* keep *) wire [7:0] w_Inst;
+    (* keep *) wire [2:0] w_Op;
+    (* keep *) wire [1:0] w_Reg1;
+    (* keep *) wire [2:0] w_Reg_Imm;
+    (* keep *) wire [7:0] w_Rdst_Val;
+    (* keep *) wire [7:0] w_Rsrc_Val;
+    (* keep *) wire [7:0] w_Result;
+    (* keep *) wire [1:0] w_Reg_Addr;
+    (* keep *) wire [4:0] w_Mem_Addr;
+    (* keep *) wire [2:0] w_ALU_Op;
+    (* keep *) wire [7:0] w_MemData;
+    (* keep *) wire w_Zero_Flag;
+    (* keep *) wire w_Overflow;
+    (* keep *) wire w_UseImm;
+    (* keep *) wire w_RegWrite_En;
+    (* keep *) wire w_MemWrite_En;
+    (* keep *) wire w_UseMem;
+    (* keep *) wire w_Jmp_En;
+    (* keep *) wire w_Halt;
+
+    (* keep *) wire [7:0] w_BusData = (w_UseMem == 1'b1) ? w_MemData : w_Result;
+
+////////////// TESTING
+    (* keep *) wire [2:0] w_Test_Val;
+
+
+    wire w_Segment2_A;
+    wire w_Segment2_B;
+    wire w_Segment2_C;
+    wire w_Segment2_D;
+    wire w_Segment2_E;
+    wire w_Segment2_F;
+    wire w_Segment2_G;
+
+
+    Binary_To_7Segment binary_seven_seg_instance
+    (
+        .i_Clk(i_Clk),
+        .i_Binary_Num(w_Test_Val),
+        .o_Segment_A(w_Segment2_A),
+        .o_Segment_B(w_Segment2_B),
+        .o_Segment_C(w_Segment2_C),
+        .o_Segment_D(w_Segment2_D),
+        .o_Segment_E(w_Segment2_E),
+        .o_Segment_F(w_Segment2_F),
+        .o_Segment_G(w_Segment2_G)
+    );
+
+    assign o_Segment2_A = ~w_Segment2_A;
+    assign o_Segment2_B = ~w_Segment2_B;
+    assign o_Segment2_C = ~w_Segment2_C;
+    assign o_Segment2_D = ~w_Segment2_D;
+    assign o_Segment2_E = ~w_Segment2_E;
+    assign o_Segment2_F = ~w_Segment2_F;
+    assign o_Segment2_G = ~w_Segment2_G;
+
+
+
+
+
+//////////////////
+
+
 
     rom rom_instance
     (
@@ -39,7 +94,8 @@ module main (
         .i_Addr(w_Mem_Addr),
         .i_Write_En(w_MemWrite_En),
         .i_Data(w_Rdst_Val),
-        .o_Data(w_MemData)
+        .o_Data(w_MemData),
+        .o_Test(w_Test_Val)
     );
 
     instruction_decoder decoder_instance
@@ -96,13 +152,12 @@ module main (
     (
         .i_Rst(rst),
         .i_Clk(i_Clk),
+        .i_Halt(w_Halt),
         .i_Jmp_En(w_Jmp_En),
         .i_Jmp_Addr(w_PC),
         .o_PC(w_ROM_Addr)
     );
 
-
-    assign o_LED_1 = w_Rdst_Val[3];
-
+assign o_LED_1 = w_Overflow;
 
 endmodule

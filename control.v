@@ -1,4 +1,4 @@
-module control (
+(* keep *) module control (
     input [2:0]i_Op,
     input [1:0]i_Rdst,       
     input [2:0] i_Rsrc_Imm,

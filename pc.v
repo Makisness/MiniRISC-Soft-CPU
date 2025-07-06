@@ -1,4 +1,4 @@
-module program_counter (
+(* keep *) module program_counter (
     input i_Rst,
     input i_Halt,
     input i_Clk,
@@ -9,13 +9,13 @@ module program_counter (
 //Program counter data
 reg [4:0] PC_Current = 5'b0;
 
-always @(posedge i_Clk or posedge i_Rst)
+always @(posedge i_Clk)
 begin
     if(!i_Halt)
     begin
-        if(i_Rst == 1'b1)   //if rst is high then reset
+        if(i_Rst)   //if rst is high then reset
             PC_Current <= 0;
-            else if(i_Jmp_En == 1'b1)   //if jmp_en is high then jump to addr
+            else if(i_Jmp_En)   //if jmp_en is high then jump to addr
                 PC_Current <= i_Jmp_Addr;
             else if(i_Jmp_En == 1'b0)   //if jump_en is low, standard increment
                 PC_Current <= PC_Current + 1; 

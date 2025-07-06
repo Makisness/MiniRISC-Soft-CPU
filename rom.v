@@ -1,4 +1,4 @@
-module rom (
+(* keep *) module rom (
     input [4:0] i_Addr,
     output [7:0] o_Inst
 );
