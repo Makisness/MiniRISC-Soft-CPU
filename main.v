@@ -1,7 +1,7 @@
 (* keep *) module main (
     input i_Clk,
-    output o_LED_1,
-    
+
+    //For Testing
     output o_Segment2_A,
     output o_Segment2_B,
     output o_Segment2_C,
@@ -13,11 +13,11 @@
 );
 
     //LUT optimization culls these if not explicitly kept
-    //I imagine that theres a better way to do this but APIO is limiting
+    //I imagine that there is a better way to do this but APIO is limiting
 
     (* keep *) reg rst = 1'b0;
-    (* keep *) wire [4:0] w_ROM_Addr; //read rom @ addr
-    (* keep *) wire [4:0] w_PC;  //set pc
+    (* keep *) wire [4:0] w_ROM_Addr;   //read rom @ addr
+    (* keep *) wire [4:0] w_PC;         //set pc
     (* keep *) wire [7:0] w_Inst;
     (* keep *) wire [2:0] w_Op;
     (* keep *) wire [1:0] w_Reg1;
@@ -41,7 +41,7 @@
     (* keep *) wire [7:0] w_BusData = (w_UseMem == 1'b1) ? w_MemData : w_Result;
 
 ////////////// TESTING
-    (* keep *) wire [2:0] w_Test_Val;
+    (* keep *) wire [3:0] w_Test_Val;
 
 
     wire w_Segment2_A;
@@ -75,8 +75,7 @@
     assign o_Segment2_G = ~w_Segment2_G;
 
 
-
-
+//This will display the data listed at memory[6] in ram on the 7 segment display
 
 //////////////////
 
@@ -157,7 +156,5 @@
         .i_Jmp_Addr(w_PC),
         .o_PC(w_ROM_Addr)
     );
-
-assign o_LED_1 = w_Overflow;
 
 endmodule

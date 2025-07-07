@@ -9,7 +9,6 @@
     input i_Write_En,
     input [1:0] i_Write_Sel,
     input [7:0] i_Write_Data,
-    input i_UseMem,
 
     //Read Data Out
     output [7:0] o_Read_Data_1,

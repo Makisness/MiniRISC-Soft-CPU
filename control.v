@@ -90,7 +90,7 @@ begin
                 //Read from imm3 address in mem
                 o_MemWrite_En = 1'b0;
                 o_UseMem = 1'b1; //Use RAM
-                o_Mem_Addr = i_Rsrc_Imm;
+                o_Mem_Addr = {2'b00,i_Rsrc_Imm};
                 o_UseImm = 1'b1;
 
                 o_PCSelect = 1'b0; //Standard behavior
@@ -109,7 +109,7 @@ begin
                 //Write to memory with imm3 address
                 o_MemWrite_En = 1'b1;
                 o_UseMem = 1'b1; //Use RAM
-                o_Mem_Addr = i_Rsrc_Imm;
+                o_Mem_Addr = {2'b00,i_Rsrc_Imm};
                 o_UseImm = 1'b1;
 
                 o_PCSelect = 1'b0; //Standard behavior
@@ -129,7 +129,7 @@ begin
                 //not used
                 o_MemWrite_En = 1'b0;
                 o_UseMem = 1'b0;
-                o_Mem_Addr = 3'b0;
+                o_Mem_Addr = 5'b0;
                 o_UseImm = 1'b0;
 
                 o_PCSelect = 1'b1; //Jump Behavior
@@ -157,7 +157,7 @@ begin
                 //not used
                 o_MemWrite_En = 1'b0;
                 o_UseMem = 1'b0;
-                o_Mem_Addr = 3'b0;
+                o_Mem_Addr = 5'b0;
                 o_UseImm = 1'b0;
                 o_Halt = 1'b0;
             end

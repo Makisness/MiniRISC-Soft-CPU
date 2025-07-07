@@ -4,7 +4,7 @@
     input i_Write_En,
     input [7:0] i_Data,
     output [7:0] o_Data,
-    output [2:0] o_Test
+    output [3:0] o_Test
 );
 
 //Memory Array
@@ -15,8 +15,8 @@ reg [7:0] memory[0:31];
 
     // Hardcoded preload
 initial begin
-    memory[2] = 8'd3;  // Value for LOAD R1, 2
-    memory[3] = 8'd3;  // Value for LOAD R2, 3
+    memory[2] = 8'd7;  // Value for LOAD R1, 2
+    memory[3] = 8'd10;  // Value for LOAD R2, 3
     // Add more as needed
 end
 
@@ -35,6 +35,6 @@ assign o_Data = memory[i_Addr];
 
 
 //testing
-assign o_Test = memory[6][2:0];
+assign o_Test = memory[6][3:0];
 
 endmodule
